@@ -1,11 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicios con Validaciones</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
+
+  <h1>Ejercicios con Validaciones</h1>
+
+  <main class="contenedor">
+
+    <section class="tarjeta">
+      <h2>1. Interés mensual</h2>
+
+      <label for="capital">Capital inicial</label>
+      <input type="number" id="capital" placeholder="Ej. 1000" min="1" max="1000000">
+
+      <label for="meses">Meses</label>
+      <input type="number" id="meses" placeholder="Ej. 6" min="1" max="120" step="1">
+
+      <button onclick="calcularInteres()">Calcular</button>
+      <div class="resultado" id="res1"></div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>2. Sueldo + comisión</h2>
+
+      <label for="sueldo">Sueldo base</label>
+      <input type="number" id="sueldo" placeholder="Ej. 5000" min="0" max="1000000">
+
+      <label for="venta1">Venta 1</label>
+      <input type="number" id="venta1" placeholder="Ej. 1200" min="0" max="1000000">
+
+      <label for="venta2">Venta 2</label>
+      <input type="number" id="venta2" placeholder="Ej. 900" min="0" max="1000000">
+
+      <label for="venta3">Venta 3</label>
+      <input type="number" id="venta3" placeholder="Ej. 1500" min="0" max="1000000">
+
+      <button onclick="calcularSueldo()">Calcular</button>
+      <div class="resultado" id="res2"></div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>3. Descuento</h2>
+
+      <label for="compra">Total de compra</label>
+      <input type="number" id="compra" placeholder="Ej. 800" min="1" max="1000000">
+
+      <button onclick="calcularDescuento()">Calcular</button>
+      <div class="resultado" id="res3"></div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>4. Calificación final</h2>
+
+      <label for="p1">Parcial 1 (0 a 10)</label>
+      <input type="number" id="p1" min="0" max="10">
+
+      <label for="p2">Parcial 2 (0 a 10)</label>
+      <input type="number" id="p2" min="0" max="10">
+
+      <label for="p3">Parcial 3 (0 a 10)</label>
+      <input type="number" id="p3" min="0" max="10">
+
+      <label for="examen">Examen final (0 a 10)</label>
+      <input type="number" id="examen" min="0" max="10">
+
+      <label for="trabajo">Trabajo final (0 a 10)</label>
+      <input type="number" id="trabajo" min="0" max="10">
+
+      <button onclick="calcularCalificacion()">Calcular</button>
+      <div class="resultado" id="res4"></div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>5. Hombres y mujeres</h2>
+
+      <label for="hombres">Número de hombres</label>
+      <input type="number" id="hombres" min="0" max="1000" step="1">
+
+      <label for="mujeres">Número de mujeres</label>
+      <input type="number" id="mujeres" min="0" max="1000" step="1">
+
+      <button onclick="calcularPorcentajes()">Calcular</button>
+      <div class="resultado" id="res5"></div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>6. Calcular edad</h2>
+
+      <label for="anioNacimiento">Año de nacimiento</label>
+      <input type="number" id="anioNacimiento" min="1900" max="2100" step="1">
+
+      <button onclick="calcularEdad()">Calcular</button>
+      <div class="resultado" id="res6"></div>
+    </section>
+
+  </main>
+  <div class="container-footer">
+        <footer>
+            <a href="../index.html">Regresar a página principal</a>
+        </footer>
+    </div>
+  <script src="./JS/Validaciones.js"></script>
 </body>
 </html>
