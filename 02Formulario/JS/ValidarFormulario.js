@@ -60,9 +60,17 @@ function validar(formulario){
     }
     //algo.algo@algo.algo  MIGJ861019
 
-    var correoelectronico = /^[^@\s]+[^@\.\s]+(\.[^@\.\s]+)+$/;
+    var correoelectronico = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     var txt = formulario.email.value;
 
     alert("Email " + (correoelectronico.test(txt)?" ":" no " )+"valido");
+
+    if (!allValid) {
+    alert("Email no valido");
+    formulario.email.focus();
+    return false;
+}
+
+return true;
 }
