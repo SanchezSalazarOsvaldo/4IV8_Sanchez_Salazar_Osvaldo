@@ -1,76 +1,59 @@
-function validar(formulario){
+function validar(formulario) {
+    var nombre = formulario.nombre.value.trim();
+    var edad = formulario.edad.value.trim();
+    var email = formulario.email.value.trim();
 
-    //vamos a crear una función para validar un numero minimo de caracteres en el nombre
-    if(formulario.nombre.value.length < 3){
-        alert("por favor ingrese un nombre mayor de 3 caracteres");
+    if (nombre.length === 0) {
+        alert("Por favor escriba su nombre.");
         formulario.nombre.focus();
         return false;
     }
 
-    var abcOK = "QWERTYUIOPPÑLKJHGFDSAZXCVBNM"+"qwertyuiopñlkjhgfdsazxcvbnm";
-
-    var checkString = formulario.nombre.value;
-
-    var allValid = true;
-
-    //tenemos que ir comparando y recorriendo la cadena caracter por caracter
-    for(var i = 0; i < checkString.length; i++){
-        //necesito la cadena pasarla a caracter
-        var caracteres = checkString.charAt(i);
-        for(var j = 0; j < abcOK.length; j++){
-            if(caracteres == abcOK.charAt(j)){
-                break;
-            }
-        }
-        if(j == abcOK.length){
-            allValid = false;
-            break;
-        }
-    }
-    if(!allValid){
-        alert("Por favor escriba unicamente letras en el campo nombre");
+    if (nombre.length < 3) {
+        alert("Por favor ingrese un nombre mayor de 3 caracteres.");
         formulario.nombre.focus();
         return false;
     }
 
-    var abcOK = "1234567890";
-
-    var checkString = formulario.edad.value;
-
-    var allValid = true;
-
-    //tenemos que ir comparando y recorriendo la cadena caracter por caracter
-    for(var i = 0; i < checkString.length; i++){
-        //necesito la cadena pasarla a caracter
-        var caracteres = checkString.charAt(i);
-        for(var j = 0; j < abcOK.length; j++){
-            if(caracteres == abcOK.charAt(j)){
-                break;
-            }
-        }
-        if(j == abcOK.length){
-            allValid = false;
-            break;
-        }
+    var nombreOK = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    if (!nombreOK.test(nombre)) {
+        alert("Por favor escriba únicamente letras en el campo nombre.");
+        formulario.nombre.focus();
+        return false;
     }
-    if(!allValid){
-        alert("Por favor escriba unicamente números en el campo edad");
+
+    if (edad.length === 0) {
+        alert("Por favor escriba su edad.");
         formulario.edad.focus();
         return false;
     }
-    //algo.algo@algo.algo  MIGJ861019
 
-    var correoelectronico = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var edadNumero = Number(edad);
+    if (isNaN(edadNumero)) {
+        alert("Por favor escriba únicamente números en el campo edad.");
+        formulario.edad.focus();
+        return false;
+    }
 
-    var txt = formulario.email.value;
+    if (edadNumero < 1 || edadNumero > 100) {
+        alert("La edad debe estar entre 1 y 100 años.");
+        formulario.edad.focus();
+        return false;
+    }
 
-    alert("Email " + (correoelectronico.test(txt)?" ":" no " )+"valido");
+    if (email.length === 0) {
+        alert("Por favor escriba su correo electrónico.");
+        formulario.email.focus();
+        return false;
+    }
 
-    if (!allValid) {
-    alert("Email no valido");
-    formulario.email.focus();
-    return false;
-}
+    var correoOK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!correoOK.test(email)) {
+        alert("Por favor escriba un correo electrónico válido.");
+        formulario.email.focus();
+        return false;
+    }
 
-return true;
+    alert("Formulario enviado correctamente.");
+    return true;
 }

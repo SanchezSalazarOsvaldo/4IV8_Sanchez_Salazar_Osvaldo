@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Madimi One', Arial, Helvetica, sans-serif;
+    background-color: #FFFFFF; /* Background */
+    color: #000500; /* Texto */
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+.form-container {
+    background-color: #FFFFFF;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+label {
+    font-weight: bold;
+    color: #000500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #89608E; /* Accent 2 */
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: #9BA2FF; /* Primary */
+}
+
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    background-color: #C32F27; /* Accent */
+    color: #FFFFFF;
+}
+
+input[type="reset"] {
+    background-color: #360A14; /* Secondary */
+    color: #FFFFFF;
+}
+
+input[type="submit"]:hover {
+    background-color: #9BA2FF; /* Primary */
+}
+
+input[type="reset"]:hover {
+    background-color: #89608E; /* Accent 2 */
+}
+
+.container-footer {
+    width: 90%;
+    max-width: 700px;
+    margin: 20px auto 40px auto;
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none;
+    color: #C32F27;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #9BA2FF;
+}
