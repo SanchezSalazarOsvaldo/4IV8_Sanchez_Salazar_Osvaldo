@@ -7,14 +7,17 @@ function problema1() {
         return;
     }
 
-    // Validar que solo haya palabras separadas por espacios
-    // y que no existan dobles espacios innecesarios.
-    var palabras = input.split(" ").filter(function (palabra) {
-        return palabra.trim() !== "";
-    });
+    // Validación estricta: solo letras y un espacio entre palabras
+    if (!/^[A-Za-z]+( [A-Za-z]+)*$/.test(input)) {
+        output.textContent = "Error: solo se permiten palabras separadas por un solo espacio (sin números ni símbolos).";
+        return;
+    }
 
-    if (palabras.length === 0) {
-        output.textContent = "Error: el texto ingresado no es válido.";
+    var palabras = input.split(" ");
+
+    // Limitar cantidad
+    if (palabras.length > 10) {
+        output.textContent = "Error: máximo 10 palabras permitidas.";
         return;
     }
 
@@ -22,6 +25,7 @@ function problema1() {
 
     output.textContent = "Resultado:\n" + palabras.join(" ");
 }
+
 
 function problema2() {
     var idsX = ["#p2-x1", "#p2-x2", "#p2-x3", "#p2-x4", "#p2-x5"];
@@ -40,17 +44,31 @@ function problema2() {
             return;
         }
 
-        v1.push(Number(valorX));
-        v2.push(Number(valorY));
+        var numX = Number(valorX);
+        var numY = Number(valorY);
+
+        if (isNaN(numX) || isNaN(numY)) {
+            output.textContent = "Error: solo se permiten números válidos.";
+            return;
+        }
+
+        // Validar enteros
+        if (!Number.isInteger(numX) || !Number.isInteger(numY)) {
+            output.textContent = "Error: solo se permiten números enteros.";
+            return;
+        }
+
+        // Validar rango
+        if (Math.abs(numX) > 1000 || Math.abs(numY) > 1000) {
+            output.textContent = "Error: los valores deben estar entre -1000 y 1000.";
+            return;
+        }
+
+        v1.push(numX);
+        v2.push(numY);
     }
 
-    if (v1.some(function (num) { return isNaN(num); }) || v2.some(function (num) { return isNaN(num); })) {
-        output.textContent = "Error: solo se permiten números válidos.";
-        return;
-    }
-
-    // Para obtener el mínimo producto escalar:
-    // ordenar un vector de menor a mayor y el otro de mayor a menor.
+    // Ordenamiento para mínimo producto escalar
     v1.sort(function (a, b) { return a - b; });
     v2.sort(function (a, b) { return b - a; });
 
@@ -58,14 +76,17 @@ function problema2() {
     var pasos = "";
 
     for (var j = 0; j < v1.length; j++) {
-        producto += v1[j] * v2[j];
-        pasos += v1[j] + " × " + v2[j] + " = " + (v1[j] * v2[j]) + "\n";
+        var mult = v1[j] * v2[j];
+        producto += mult;
+        pasos += v1[j] + " × " + v2[j] + " = " + mult + "\n";
     }
 
-    output.textContent = "Vectores ordenados:\nX = [" + v1.join(", ") + "]\nY = [" + v2.join(", ") + "]\n\n" +
+    output.textContent =
+        "Vectores ordenados:\nX = [" + v1.join(", ") + "]\nY = [" + v2.join(", ") + "]\n\n" +
         "Operaciones:\n" + pasos +
         "\nProducto escalar mínimo: " + producto;
 }
+
 
 function problema3() {
     var input = document.querySelector("#p3-input").value.trim();
@@ -76,16 +97,23 @@ function problema3() {
         return;
     }
 
-    // No se aceptan espacios
+    // No permitir espacios
     if (input.indexOf(" ") !== -1) {
-        output.textContent = "Error: no se permiten espacios. Separa las palabras solo con comas.";
+        output.textContent = "Error: no se permiten espacios. Usa solo comas.";
+        return;
+    }
+
+    // Evitar comas dobles
+    if (input.includes(",,")) {
+        output.textContent = "Error: no debe haber comas vacías.";
         return;
     }
 
     var palabras = input.split(",");
 
-    if (palabras.length === 0) {
-        output.textContent = "Error: formato inválido.";
+    // Limitar cantidad
+    if (palabras.length > 10) {
+        output.textContent = "Error: máximo 10 palabras permitidas.";
         return;
     }
 
@@ -97,32 +125,36 @@ function problema3() {
         var palabra = palabras[i].trim();
 
         if (palabra === "") {
-            output.textContent = "Error: no dejes palabras vacías entre comas.";
+            output.textContent = "Error: hay palabras vacías.";
             return;
         }
 
-        // Validar que solo tenga letras mayúsculas A-Z
+        // Validar solo A-Z mayúsculas
         if (!/^[A-Z]+$/.test(palabra)) {
-            output.textContent = "Error: solo se aceptan palabras en mayúsculas con letras A-Z.";
+            output.textContent = "Error: solo se permiten letras mayúsculas (A-Z).";
             return;
         }
 
         var letrasUnicas = [];
+
         for (var j = 0; j < palabra.length; j++) {
             if (letrasUnicas.indexOf(palabra[j]) === -1) {
                 letrasUnicas.push(palabra[j]);
             }
         }
 
-        var cantidadUnicos = letrasUnicas.length;
-        detalle += palabra + " = " + cantidadUnicos + " (" + letrasUnicas.join(", ") + ")\n";
+        var cantidad = letrasUnicas.length;
 
-        if (cantidadUnicos > maxUnicos) {
-            maxUnicos = cantidadUnicos;
+        detalle += palabra + " = " + cantidad + " (" + letrasUnicas.join(", ") + ")\n";
+
+        if (cantidad > maxUnicos) {
+            maxUnicos = cantidad;
             mejorPalabra = palabra;
         }
     }
 
-    output.textContent = "Análisis:\n" + detalle + "\nLa palabra con más caracteres únicos es: " + mejorPalabra +
-        "\nCantidad de caracteres únicos: " + maxUnicos;
+    output.textContent =
+        "Análisis:\n" + detalle +
+        "\nLa palabra con más caracteres únicos es: " + mejorPalabra +
+        "\nCantidad: " + maxUnicos;
 }
