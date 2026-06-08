@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
         const [nueva] = await db.execute('SELECT * FROM bows WHERE id = ?', [resultado.insertId]);
         res.status(201).json({ status: 'success', data: nueva[0] });
     } catch (error) {
+        console.error("Error en POST bows:", error);
         res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
     }
 });

@@ -49,6 +49,7 @@ router.post('/', async (req, res) => {
             data: { id: resultado.insertId, mensaje: 'Sujeto de prueba inoculado exitosamente' }
         });
     } catch (error) {
+        console.error("Error en POST experimentos:", error);
         res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
     }
 });

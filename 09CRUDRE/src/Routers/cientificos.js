@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
         const [nuevo] = await db.execute('SELECT * FROM cientificos WHERE id = ?', [resultado.insertId]);
         res.status(201).json({ status: 'success', data: nuevo[0] });
     } catch (error) {
+        console.error("Error en POST cientificos:", error);
         if (error.code === 'ER_DUP_ENTRY') return res.status(409).json({ status: 'error', message: 'Ese código de credencial ya está registrado' });
         res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
     }

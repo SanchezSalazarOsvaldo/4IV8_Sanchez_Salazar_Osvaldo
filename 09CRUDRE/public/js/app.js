@@ -21,7 +21,7 @@ async function fetchAPI(url, opciones = {}) {
     const uiCodigo = document.getElementById('api-codigo');
 
     try {
-        const respuesta = await fetch(url, opciones);
+        const respuesta = await fetch(`http://localhost:3000${url}`, opciones);
         const data = await respuesta.json();
         
         // Actualizar terminal visual
@@ -61,6 +61,7 @@ function cambiarSeccion(seccion) {
     document.querySelector(`button[onclick="cambiarSeccion('${seccion}')"]`).classList.add('active');
     
     if (seccion === 'experimentos') cargarExperimentos();
+    if (seccion === 'bows') cargarBows();
 }
 
 // =========================================================
@@ -244,10 +245,68 @@ async function eliminarExperimento(id) {
 }
 
 // --- B.O.W.S ---
+async function cargarBows() {
+    const res = await fetchAPI('/api/bows');
+    if (!res.ok) return;
 
-// 5. INICIALIZACIÓN
+    const tbody = document.getElementById('tbody-bows');
+    tbody.innerHTML = res.data.data.map(b => `
+        <tr>
+            <td>${b.id}</td>
+            <td>${b.nombre}</td>
+            <td>${b.virus_base}</td>
+            <td>${b.informacion}</td>
+            <td>
+                ${b.imagen_url ? `<img src="${b.imagen_url}" alt="${b.nombre}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">` : 'Sin imagen'}
+            </td>
+            <td><button class="btn-eliminar" onclick="eliminarBow(${b.id})">Incinerar</button></td>
+        </tr>
+    `).join('');
+    
+    document.getElementById('tabla-bows').style.display = 'table';
+    document.getElementById('contador-bows').textContent = res.data.count;
+    document.getElementById('carga-bows').style.display = 'none';
+}
+
+document.getElementById('form-bow').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    procesandoFormulario('btn-guardar-bow', true);
+
+    const payload = {
+        nombre: document.getElementById('bow-nombre').value,
+        virus_base: document.getElementById('bow-virus').value,
+        informacion: document.getElementById('bow-informacion').value,
+        imagen_url: document.getElementById('bow-imagen').value
+    };
+
+    const res = await fetchAPI('/api/bows', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    procesandoFormulario('btn-guardar-bow', false);
+
+    if (!res.ok) mostrarNotificacion(res.data.message, 'error');
+    else {
+        mostrarNotificacion('B.O.W. registrada en el sistema');
+        cargarBows();
+        e.target.reset();
+    }
+});
+
+async function eliminarBow(id) {
+    if(!confirm('¿Eliminar registro de esta B.O.W.?')) return;
+    const res = await fetchAPI(`/api/bows/${id}`, { method: 'DELETE' });
+    if (!res.ok) mostrarNotificacion(res.data.message, 'error');
+    else {
+        mostrarNotificacion(res.data.data.mensaje);
+        cargarBows();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     cargarCientificos();
     cargarPatogenos();
-    // Los experimentos se cargan cuando se abre la pestaña para tener los selects actualizados
+    cargarBows();
 });

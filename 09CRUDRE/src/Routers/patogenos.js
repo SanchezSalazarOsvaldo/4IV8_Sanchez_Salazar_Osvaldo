@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
         const [nuevo] = await db.execute('SELECT * FROM patogenos WHERE id = ?', [resultado.insertId]);
         res.status(201).json({ status: 'success', data: nuevo[0] });
     } catch (error) {
+        console.error("Error en POST patogenos:", error);
         res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
     }
 });

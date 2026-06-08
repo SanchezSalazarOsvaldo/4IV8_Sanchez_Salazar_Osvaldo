@@ -18,11 +18,11 @@ app.use((req, res, next) => {
 // Servir archivos estáticos de la interfaz
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Importación de Routers desde la carpeta src/
-const cientificosRouter = require('./src/Routers/cientificos');
-const patogenosRouter = require('./src/src/Routers/patogenos');
-const experimentosRouter = require('./src/Routers/experimentos');
-const bowsRouter = require('./src/Routers/bows');
+// Importación de Routers
+const cientificosRouter = require('./Routers/cientificos');
+const patogenosRouter = require('./Routers/patogenos');
+const experimentosRouter = require('./Routers/experimentos');
+const bowsRouter = require('./Routers/bows');
 
 // Registro de Endpoints del Negocio
 app.use('/api/cientificos', cientificosRouter);
