@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umbrella Corp | Red Central</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Umbrella Corporation</h1>
+        <p>Sistema de Gestión de Laboratorios y Riesgos Biológicos</p>
+        
+        <nav class="tabs">
+            <button class="tab active" onclick="cambiarSeccion('cientificos')">Científicos</button>
+            <button class="tab" onclick="cambiarSeccion('patogenos')">Patógenos</button>
+            <button class="tab" onclick="cambiarSeccion('experimentos')">Experimentos</button>
+            <button class="tab" onclick="cambiarSeccion('bows')">Archivo B.O.W.s</button>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="info-api">
+            <h3>Estado del Servidor Central</h3>
+            <div class="api-status">
+                <span id="api-metodo" class="badge">-</span>
+                <span id="api-url" class="api-url">Esperando conexión...</span>
+                <span id="api-codigo" class="badge badge-neutral">-</span>
+            </div>
+        </section>
+
+        <div id="seccion-cientificos" class="seccion">
+            <section class="formulario-section">
+                <h2 id="form-titulo-cientifico">Registrar Personal</h2>
+                <form id="form-cientifico" novalidate>
+                    <input type="hidden" id="cientifico-id">
+                    <div class="campos-grid">
+                        <div class="campo">
+                            <label for="cientifico-nombre">Nombre Completo:</label>
+                            <input type="text" id="cientifico-nombre" placeholder="Ej: William Birkin" required>
+                            <span class="error" id="error-cientifico-nombre"></span>
+                        </div>
+                        <div class="campo">
+                            <label for="cientifico-codigo">Código de Credencial:</label>
+                            <input type="text" id="cientifico-codigo" placeholder="Ej: UMB-001" required>
+                            <span class="error" id="error-cientifico-codigo"></span>
+                        </div>
+                        <div class="campo">
+                            <label for="cientifico-edad">Edad:</label>
+                            <input type="number" id="cientifico-edad" placeholder="Ej: 36" min="18" required>
+                            <span class="error" id="error-cientifico-edad"></span>
+                        </div>
+                    </div>
+                    <div class="botones">
+                        <button type="submit" id="btn-guardar-cientifico">Autorizar Registro</button>
+                        <button type="button" id="btn-cancelar-cientifico" class="btn-secundario" style="display:none;">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="tabla-section">
+                <h2>Directorio de Personal <span id="contador-cientificos" class="badge badge-neutral">0</span></h2>
+                <p id="carga-cientificos">Accediendo a la base de datos...</p>
+                <table id="tabla-cientificos" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Credencial</th>
+                            <th>Edad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-cientificos"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <div id="seccion-patogenos" class="seccion" style="display:none;">
+            <section class="formulario-section">
+                <h2 id="form-titulo-patogeno">Sintetizar Patógeno</h2>
+                <form id="form-patogeno" novalidate>
+                    <input type="hidden" id="patogeno-id">
+                    <div class="campos-grid">
+                        <div class="campo">
+                            <label for="patogeno-nombre">Nombre del Virus:</label>
+                            <input type="text" id="patogeno-nombre" placeholder="Ej: T-Virus" required>
+                            <span class="error" id="error-patogeno-nombre"></span>
+                        </div>
+                        <div class="campo">
+                            <label for="patogeno-cepa">Tipo de Cepa:</label>
+                            <input type="text" id="patogeno-cepa" placeholder="Ej: Épsilon" required>
+                            <span class="error" id="error-patogeno-cepa"></span>
+                        </div>
+                        <div class="campo">
+                            <label for="patogeno-stock">Viales en Stock:</label>
+                            <input type="number" id="patogeno-stock" placeholder="Ej: 50" min="0" required>
+                            <span class="error" id="error-patogeno-stock"></span>
+                        </div>
+                    </div>
+                    <div class="botones">
+                        <button type="submit" id="btn-guardar-patogeno">Almacenar Muestra</button>
+                        <button type="button" id="btn-cancelar-patogeno" class="btn-secundario" style="display:none;">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="tabla-section">
+                <h2>Inventario Biológico <span id="contador-patogenos" class="badge badge-neutral">0</span></h2>
+                <p id="carga-patogenos">Accediendo a la base de datos...</p>
+                <table id="tabla-patogenos" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Virus</th>
+                            <th>Cepa</th>
+                            <th>Viales</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-patogenos"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <div id="seccion-experimentos" class="seccion" style="display:none;">
+            <section class="formulario-section">
+                <h2>Registrar Prueba Biológica</h2>
+                <form id="form-experimento" novalidate>
+                    <div class="campos-grid campos-grid-3">
+                        <div class="campo">
+                            <label for="experimento-cientifico">Científico a cargo:</label>
+                            <select id="experimento-cientifico" required>
+                                <option value="">-- Seleccionar --</option>
+                            </select>
+                            <span class="error" id="error-experimento-cientifico"></span>
+                        </div>
+                        <div class="campo">
+                            <label for="experimento-patogeno">Patógeno inoculado:</label>
+                            <select id="experimento-patogeno" required>
+                                <option value="">-- Seleccionar --</option>
+                            </select>
+                            <span class="error" id="error-experimento-patogeno"></span>
+                        </div>
+                        <div class="campo">
+                            <label for="experimento-dosis">Dosis (ml):</label>
+                            <input type="number" id="experimento-dosis" value="1" min="1" required>
+                            <span class="error" id="error-experimento-dosis"></span>
+                        </div>
+                        <div class="campo" style="grid-column: 1 / -1;">
+                            <label for="experimento-resultado">Resultado de Mutación:</label>
+                            <input type="text" id="experimento-resultado" placeholder="Ej: Estable, Fuga de contención, Necrosis..." required>
+                            <span class="error" id="error-experimento-resultado"></span>
+                        </div>
+                    </div>
+                    <div class="botones">
+                        <button type="submit" id="btn-registrar-experimento">Iniciar Experimento</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="tabla-section">
+                <h2>Bitácora de Experimentos <span id="contador-experimentos" class="badge badge-neutral">0</span></h2>
+                <p id="carga-experimentos">Accediendo a la base de datos...</p>
+                <table id="tabla-experimentos" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Científico</th>
+                            <th>Patógeno</th>
+                            <th>Dosis</th>
+                            <th>Resultado</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-experimentos"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <div id="seccion-bows" class="seccion" style="display:none;">
+            <section class="formulario-section">
+                <h2 id="form-titulo-bow">Clasificar Espécimen B.O.W.</h2>
+                <form id="form-bow" novalidate>
+                    <input type="hidden" id="bow-id">
+                    <div class="campos-grid">
+                        <div class="campo">
+                            <label for="bow-nombre">Nombre Clave:</label>
+                            <input type="text" id="bow-nombre" placeholder="Ej: Tyrant T-103" required>
+                        </div>
+                        <div class="campo">
+                            <label for="bow-virus">Virus Base:</label>
+                            <input type="text" id="bow-virus" placeholder="Ej: T-Virus" required>
+                        </div>
+                        <div class="campo" style="grid-column: 1 / -1;">
+                            <label for="bow-informacion">Descripción de Combate:</label>
+                            <input type="text" id="bow-informacion" placeholder="Fuerza sobrehumana, mutación controlada..." required>
+                        </div>
+                        <div class="campo" style="grid-column: 1 / -1;">
+                            <label for="bow-imagen">URL Fotografía Cctv (Opcional):</label>
+                            <input type="url" id="bow-imagen" placeholder="https://...">
+                        </div>
+                    </div>
+                    <div class="botones">
+                        <button type="submit" id="btn-guardar-bow">Guardar Registro</button>
+                        <button type="button" id="btn-cancelar-bow" class="btn-secundario" style="display:none;">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="tabla-section">
+                <h2>Catálogo de Armas Bio-Orgánicas <span id="contador-bows" class="badge badge-neutral">0</span></h2>
+                <p id="carga-bows">Accediendo a la base de datos...</p>
+                <table id="tabla-bows" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CCTV</th>
+                            <th>Espécimen</th>
+                            <th>Virus</th>
+                            <th>Detalles</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-bows"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <div id="notificacion" class="notificacion" style="display:none;"></div>
+
+    </main>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>

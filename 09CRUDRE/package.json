@@ -1,0 +1,29 @@
+{
+  "name": "09crudre",
+  "version": "1.0.0",
+  "description": "CRUD RESIDENTEVIL",
+  "keywords": [
+    "residentevil",
+    "crud",
+    "mvc"
+  ],
+  "homepage": "https://github.com/SanchezSalazarOsvaldo/4IV8_Sanchez_Salazar_Osvaldo#readme",
+  "bugs": {
+    "url": "https://github.com/SanchezSalazarOsvaldo/4IV8_Sanchez_Salazar_Osvaldo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SanchezSalazarOsvaldo/4IV8_Sanchez_Salazar_Osvaldo.git"
+  },
+  "license": "ISC",
+  "author": "Sanchez Salazar Osvaldo",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "mysql2": "^3.22.5"
+  }
+}
