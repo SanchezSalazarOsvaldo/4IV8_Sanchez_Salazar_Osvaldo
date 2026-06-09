@@ -64,6 +64,36 @@ function cambiarSeccion(seccion) {
     if (seccion === 'bows') cargarBows();
 }
 
+// 5. MOTOR DE VALIDACIÓN FRONTEND
+// Evalúa las reglas HTML5 de cada input. Bloquea el submit y renderiza el error en el span asociado.
+function validarFormulario(formulario) {
+    let esValido = true;
+    
+    // Limpieza de mensajes residuales
+    formulario.querySelectorAll('.error').forEach(span => span.textContent = '');
+    
+    Array.from(formulario.elements).forEach(input => {
+        // Ignorar botones, evaluar solo campos de entrada
+        if (input.tagName !== 'BUTTON' && !input.validity.valid) {
+            esValido = false;
+            const spanError = document.getElementById(`error-${input.id}`);
+            if (spanError) {
+                // Extrae el mensaje custom (title) o usa el nativo del DOM (validationMessage)
+                spanError.textContent = input.title || input.validationMessage;
+            }
+        }
+    });
+    return esValido;
+}
+
+// Limpieza en tiempo real: borra el mensaje de error en cuanto el usuario teclea para corregir
+document.querySelectorAll('input, select').forEach(input => {
+    input.addEventListener('input', (e) => {
+        const spanError = document.getElementById(`error-${e.target.id}`);
+        if (spanError) spanError.textContent = '';
+    });
+});
+
 // =========================================================
 // MÓDULOS CRUD
 // =========================================================
@@ -87,11 +117,19 @@ async function cargarCientificos() {
 
 document.getElementById('form-cientifico').addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    if (!validarFormulario(e.target)) {
+        return mostrarNotificacion('Protocolos de seguridad vulnerados. Revisa los campos.', 'error');
+    }
+
     procesandoFormulario('btn-guardar-cientifico', true);
+
+    // Capturamos el código y lo estandarizamos a MAYÚSCULAS (ej: umb-001 -> UMB-001)
+    const codigoInput = document.getElementById('cientifico-codigo').value.trim().toUpperCase();
 
     const payload = {
         nombre: document.getElementById('cientifico-nombre').value,
-        codigo_credencial: document.getElementById('cientifico-codigo').value,
+        codigo_credencial: codigoInput,
         edad: document.getElementById('cientifico-edad').value
     };
 
@@ -100,6 +138,18 @@ document.getElementById('form-cientifico').addEventListener('submit', async (e) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
+
+    procesandoFormulario('btn-guardar-cientifico', false);
+
+    // Si hubo un error (como el formato AAAAA o límite de letras), mostramos tu notificación
+    if (!res.ok) {
+        mostrarNotificacion(res.data.message, 'error');
+    } else {
+        // Si todo salió bien, mostramos mensaje de éxito y limpiamos la tabla
+        mostrarNotificacion('Personal autorizado y registrado con éxito');
+        cargarCientificos();
+        e.target.reset();
+    }
 
     procesandoFormulario('btn-guardar-cientifico', false);
 
@@ -141,6 +191,12 @@ async function cargarPatogenos() {
 
 document.getElementById('form-patogeno').addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // Ejecutar escáner de validación antes de procesar
+    if (!validarFormulario(e.target)) {
+        return mostrarNotificacion('Datos biológicos inconsistentes. Revisa los campos.', 'error');
+    }
+
     procesandoFormulario('btn-guardar-patogeno', true);
 
     const payload = {
@@ -168,7 +224,7 @@ document.getElementById('form-patogeno').addEventListener('submit', async (e) =>
 async function eliminarPatogeno(id) {
     if(!confirm('¿Incinerar todas las muestras de este patógeno?')) return;
     const res = await fetchAPI(`/api/patogenos/${id}`, { method: 'DELETE' });
-    if (!res.ok) mostrarNotificacion(res.data.message, 'error'); // Mostrará error si hay experimentos asociados
+    if (!res.ok) mostrarNotificacion(res.data.message, 'error'); 
     else {
         mostrarNotificacion(res.data.data.mensaje);
         cargarPatogenos();
@@ -209,6 +265,12 @@ async function cargarExperimentos() {
 
 document.getElementById('form-experimento').addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // Ejecutar escáner de validación antes de procesar
+    if (!validarFormulario(e.target)) {
+        return mostrarNotificacion('Faltan parámetros de prueba obligatorios.', 'error');
+    }
+
     procesandoFormulario('btn-registrar-experimento', true);
 
     const payload = {
@@ -270,6 +332,12 @@ async function cargarBows() {
 
 document.getElementById('form-bow').addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // Ejecutar escáner de validación antes de procesar
+    if (!validarFormulario(e.target)) {
+        return mostrarNotificacion('Formato de registro de espécimen inválido.', 'error');
+    }
+
     procesandoFormulario('btn-guardar-bow', true);
 
     const payload = {

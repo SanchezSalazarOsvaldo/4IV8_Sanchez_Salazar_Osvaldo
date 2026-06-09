@@ -4,9 +4,15 @@ const db = require('../DB/database');
 
 function validarPatogeno(datos) {
     const errores = [];
-    if (!datos.nombre || datos.nombre.trim().length < 2) errores.push('El nombre del patógeno es obligatorio');
-    if (!datos.tipo_cepa || datos.tipo_cepa.trim().length < 2) errores.push('El tipo de cepa es obligatorio');
-    if (datos.stock_viales === undefined || isNaN(datos.stock_viales) || parseInt(datos.stock_viales) < 0) errores.push('El stock de viales debe ser un número válido');
+    if (!datos.nombre || datos.nombre.trim().length < 2 || datos.nombre.trim().length > 100) 
+        errores.push('El nombre del patógeno debe tener entre 2 y 100 caracteres');
+        
+    if (!datos.tipo_cepa || datos.tipo_cepa.trim().length < 2 || datos.tipo_cepa.trim().length > 100) 
+        errores.push('El tipo de cepa debe tener entre 2 y 100 caracteres');
+        
+    if (datos.stock_viales === undefined || isNaN(datos.stock_viales) || parseInt(datos.stock_viales) < 0 || parseInt(datos.stock_viales) > 999999) 
+        errores.push('El stock de viales debe ser un número válido (máximo 999,999)');
+        
     return errores;
 }
 

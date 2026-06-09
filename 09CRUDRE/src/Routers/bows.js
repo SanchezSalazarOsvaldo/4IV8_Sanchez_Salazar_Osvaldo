@@ -4,9 +4,18 @@ const db = require('../DB/database');
 
 function validarBow(datos) {
     const errores = [];
-    if (!datos.nombre || datos.nombre.trim().length < 2) errores.push('El nombre de la B.O.W. es obligatorio');
-    if (!datos.virus_base || datos.virus_base.trim().length < 2) errores.push('El virus base es obligatorio');
-    if (!datos.informacion || datos.informacion.trim().length < 5) errores.push('La información del espécimen es obligatoria');
+    if (!datos.nombre || datos.nombre.trim().length < 2 || datos.nombre.trim().length > 100) 
+        errores.push('El nombre de la B.O.W. debe tener entre 2 y 100 caracteres');
+    
+    if (!datos.virus_base || datos.virus_base.trim().length < 2 || datos.virus_base.trim().length > 100) 
+        errores.push('El virus base debe tener entre 2 y 100 caracteres');
+    
+    if (!datos.informacion || datos.informacion.trim().length < 5 || datos.informacion.trim().length > 1000) 
+        errores.push('La información del espécimen debe tener entre 5 y 1000 caracteres');
+        
+    if (datos.imagen_url && datos.imagen_url.trim().length > 255) 
+        errores.push('La URL de la imagen excede el límite permitido (máx 255 caracteres)');
+        
     return errores;
 }
 

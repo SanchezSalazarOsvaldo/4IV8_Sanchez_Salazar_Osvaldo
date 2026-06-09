@@ -4,10 +4,18 @@ const db = require('../DB/database');
 
 function validarExperimento(datos) {
     const errores = [];
-    if (!datos.cientifico_id || parseInt(datos.cientifico_id) <= 0) errores.push('El ID del científico es obligatorio');
-    if (!datos.patogeno_id || parseInt(datos.patogeno_id) <= 0) errores.push('El ID del patógeno es obligatorio');
-    if (!datos.cantidad_dosis || parseInt(datos.cantidad_dosis) <= 0) errores.push('La cantidad de dosis debe ser mayor a 0');
-    if (!datos.resultado_mutacion || datos.resultado_mutacion.trim() === '') errores.push('El resultado de la mutación es obligatorio');
+    if (!datos.cientifico_id || parseInt(datos.cientifico_id) <= 0) 
+        errores.push('El ID del científico es obligatorio');
+        
+    if (!datos.patogeno_id || parseInt(datos.patogeno_id) <= 0) 
+        errores.push('El ID del patógeno es obligatorio');
+        
+    if (!datos.cantidad_dosis || parseInt(datos.cantidad_dosis) <= 0) 
+        errores.push('La cantidad de dosis debe ser mayor a 0');
+        
+    if (!datos.resultado_mutacion || datos.resultado_mutacion.trim() === '' || datos.resultado_mutacion.trim().length > 1000) 
+        errores.push('El resultado de la mutación es obligatorio y no debe exceder los 1000 caracteres');
+        
     return errores;
 }
 
