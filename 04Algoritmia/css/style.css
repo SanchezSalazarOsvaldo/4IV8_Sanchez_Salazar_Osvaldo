@@ -1,176 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: "Madimi One", sans-serif;
-    background: #ffffff;
+    font-family: 'Madimi One', sans-serif;
+    background-color: #FFFFFF;
     color: #000500;
-    padding: 30px;
-}
-
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .titulo-principal {
-    font-size: 48px;
+    font-size: 36px;
     text-align: center;
-    margin-bottom: 30px;
     color: #360A14;
+    margin: 40px 0 20px 0;
+}
+
+.container {
+    padding: 20px 40px 60px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .problema-container {
-    background: #ffffff;
-    border: 2px solid #000500;
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background-color: #89608E;
+    color: #FFFFFF;
+    padding: 30px;
+    border-radius: 8px;
+    border: 3px solid #360A14;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 5, 0, 0.2);
 }
 
 .problema-titulo {
-    font-size: 36px;
-    color: #360A14;
-    margin-bottom: 12px;
+    font-size: 32px;
+    color: #FFFFFF;
+    text-align: center;
 }
 
 .problema-descripcion {
     font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    color: #000500;
     font-weight: normal;
+    line-height: 1.5;
+    text-align: center;
 }
 
 .problema-content {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 20px;
 }
 
 .problema-input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #89608E;
-    border-radius: 14px;
-    font-family: "Madimi One", sans-serif;
+    font-family: 'Madimi One', sans-serif;
     font-size: 20px;
-    outline: none;
-    background: #ffffff;
+    padding: 12px;
+    border: 2px solid #360A14;
+    border-radius: 6px;
+    background-color: #FFFFFF;
     color: #000500;
-    transition: 0.2s ease;
+    width: 100%;
 }
 
 .problema-input:focus {
-    border-color: #C32F27;
-    box-shadow: 0 0 0 3px rgba(195, 47, 39, 0.15);
-}
-
-.problema-button {
-    width: fit-content;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 14px;
-    background: #C32F27;
-    color: #ffffff;
-    font-family: "Madimi One", sans-serif;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.problema-button:hover {
-    background: #360A14;
-    transform: translateY(-1px);
-}
-
-.problema-button:active {
-    transform: translateY(0);
-}
-
-.problema-output {
-    min-height: 60px;
-    padding: 16px;
-    border-radius: 14px;
-    background: #F5F2F6;
-    border: 2px solid #89608E;
-    font-family: "Madimi One", sans-serif;
-    font-size: 20px;
-    white-space: pre-wrap;
-    color: #000500;
+    outline: none;
+    border-color: #9BA2FF;
+    box-shadow: 0 0 5px #9BA2FF;
 }
 
 .tablas {
-    width: 100%;
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
-    align-items: flex-start;
     flex-wrap: wrap;
 }
 
 .problema-table {
-    width: 45%;
-    min-width: 280px;
     border-collapse: collapse;
-    background: #ffffff;
-    border: 2px solid #89608E;
-    border-radius: 16px;
+    background-color: #FFFFFF;
+    color: #000500;
+    border-radius: 6px;
     overflow: hidden;
+    border: 2px solid #360A14;
 }
 
-.problema-table th,
+.problema-table th, 
 .problema-table td {
-    border: 1px solid #89608E;
     padding: 10px;
     text-align: center;
-    font-size: 18px;
+    border: 1px solid #360A14;
 }
 
 .problema-table th {
-    background: #9BA2FF;
+    background-color: #9BA2FF;
     color: #000500;
+    font-size: 20px;
 }
 
-.problema-table .problema-input {
-    width: 100%;
-    border: 1px solid #89608E;
-    border-radius: 10px;
-    font-size: 18px;
-    padding: 8px 10px;
+.problema-table input {
+    width: 80px;
+    text-align: center;
 }
 
-em {
-    font-style: normal;
-    color: #360A14;
-    font-weight: bold;
+.problema-button {
+    font-family: 'Madimi One', sans-serif;
+    background-color: #9BA2FF;
+    color: #000500;
+    border: 2px solid transparent;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    align-self: center;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding: 16px;
-    }
+.problema-button:hover {
+    background-color: #C32F27;
+    color: #FFFFFF;
+    border-color: #360A14;
+}
 
-    .titulo-principal {
-        font-size: 34px;
-    }
+.problema-output {
+    background-color: #360A14;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 6px;
+    font-family: 'Madimi One', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
 
-    .problema-titulo {
-        font-size: 28px;
-    }
+.container-footer footer {
+    background-color: #360A14;
+    padding: 40px;
+    text-align: center;
+    margin-top: auto;
+}
 
-    .problema-descripcion,
-    .problema-input,
-    .problema-button,
-    .problema-output {
-        font-size: 18px;
-    }
+a {
+    display: inline-block;
+    background-color: #9BA2FF;
+    color: #000500;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    border: 2px solid transparent;
+}
 
-    .problema-table {
-        width: 100%;
-    }
+a:hover {
+    background-color: #C32F27;
+    color: #FFFFFF;
+    border-color: #360A14;
 }

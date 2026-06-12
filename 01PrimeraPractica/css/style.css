@@ -1,34 +1,99 @@
-*{
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+
+* {
     margin: 0;
-    color: blue;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Madimi One', sans-serif;
+    background-color: #FFFFFF;
+    color: #000500;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.container-main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container-nav header {
+    background-color: #9BA2FF;
+    padding: 20px 40px;
+    box-shadow: 0 4px 6px rgba(0, 5, 0, 0.1);
+}
+
+.container-nav nav {
+    font-size: 20px;
+    color: #000500;
+}
+
+.container-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    padding: 40px;
+    gap: 30px;
+}
+
+section, article, aside {
+    padding: 30px;
+    border-radius: 8px;
+}
+
+section {
+    flex: 1 1 100%;
+    background-color: #89608E;
+    color: #FFFFFF;
+}
+
+article {
+    flex: 2 1 60%;
+    background-color: #FFFFFF;
+    border: 3px solid #360A14;
+    color: #000500;
+}
+
+aside {
+    flex: 1 1 30%;
+    background-color: #C32F27;
+    color: #FFFFFF;
+}
+
+.container-footer footer {
+    background-color: #360A14;
+    color: #FFFFFF;
+    padding: 40px;
     text-align: center;
 }
 
-html, body {
-    background-color: blueviolet;
+a {
+    display: inline-block;
+    background-color: #9BA2FF;
+    color: #000500;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 2px solid transparent;
 }
 
-.container_main {
-    border: 7px solid rgb (103, 239, 159);
-    border-radius: 50px;
-    margin: 2rem;
-    background-color: rgb(227, 111, 229);
-}
-
-nav, section, footer, aside, article {
-    border: 4px solid rgb(255, 0, 0);
-    margin: 1rem;
-    border-radius: 10px;
-    padding: 1rem;
-}
-
-article, aside {
-    width: 40%;
-    display: inline-flex;
-    height: 300px;
-}
-
-nav, footer, section {
-    background-color: darkslategray;
+a:hover {
+    background-color: #C32F27;
+    color: #FFFFFF;
+    border-color: #360A14;
 }

@@ -8,15 +8,21 @@
     <link rel="stylesheet" href="./css/portafolio.css">
 </head>
 <body>
+
+    <div class="fondo-dinamico" id="bg-1" style="background-image: linear-gradient(rgba(0, 5, 0, 0.85), rgba(0, 5, 0, 0.85)), url('./images/fondonegro.jpg');"></div>
+    <div class="fondo-dinamico" id="bg-2" style="background-image: linear-gradient(rgba(0, 5, 0, 0.85), rgba(0, 5, 0, 0.85)), url('./images/fondoblanco.jpg');"></div>
     
+    <img src="./images/ipn-logo.png" alt="Logo IPN" class="logo-esquina logo-izq">
+    <img src="./images/cecyt9-logo.png" alt="Logo CECyT" class="logo-esquina logo-der">
+
     <div class="contenedor">
         <header>
             <h1>Portafolio de Evidencias</h1>
-            <p class="subtitulo">Sánchez Salazar Osvaldo</p>
+            <p class="subtitulo">Sánchez Salazar Osvaldo 4IV8</p>
         </header>
 
         <main>
-            <p class="descripcion">Proyecto y ejercicios de la asignatura en GitHub Pages:</p>
+            <p class="descripcion">Este es el portafolio de evidencia de Sánchez Salazar Osvaldo 4IV8</p>
             
             <div class="grid-proyectos">
                 <a href="./01PrimeraPractica/inicio.html" class="card">
@@ -51,8 +57,42 @@
                     <h3>09. CRUD Resident Evil</h3>
                 </a>
             </div>
+
+            <div class="conclusion-container">
+                <h3>Objetivo del Portafolio</h3>
+                <div class="texto-conclusion">
+                    <p>Aqui van las conclusiones</p>
+                </div>
+            </div>
+
+            <div class="control-ambiente">
+                <p>Cambiar entorno visual:</p>
+                <div class="thumbnails-grupo">
+                    <div class="thumb thumb-1">
+                        <img src="./images/fondonegro.jpg" alt="Entorno 1">
+                    </div>
+                    <div class="thumb thumb-2">
+                        <img src="./images/fondoblanco.jpg" alt="Entorno 2">
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
+
+    <script>
+        const thumb1 = document.querySelector('.thumb-1');
+        const thumb2 = document.querySelector('.thumb-2');
+        const bg1 = document.getElementById('bg-1');
+        const bg2 = document.getElementById('bg-2');
+
+        // Cuando el cursor entra, la opacidad sube a 1. Cuando sale, baja a 0.
+        thumb1.addEventListener('mouseenter', () => bg1.style.opacity = '1');
+        thumb1.addEventListener('mouseleave', () => bg1.style.opacity = '0');
+
+        thumb2.addEventListener('mouseenter', () => bg2.style.opacity = '1');
+        thumb2.addEventListener('mouseleave', () => bg2.style.opacity = '0');
+    </script>
 
 </body>
 </html>
